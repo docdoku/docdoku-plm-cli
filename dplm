@@ -1,0 +1,24 @@
+#! /usr/bin/env sh
+
+PRG="$0"
+while [ -h "$PRG" ] ; do
+    PRG=`readlink "$PRG"`
+done
+dir=`dirname $PRG`
+
+ARGS=""
+while test $# -gt 0
+do
+    case "$1" in
+        *\ * )
+            ARGS=$ARGS" \"$1\""
+            ;;
+        *)
+            ARGS=$ARGS" $1"
+            ;;
+        esac
+    shift
+done
+java -Xmx1024M -classpath $dir/target/docdoku-cli-jar-with-dependencies.jar com.docdoku.cli.MainCommand $ARGS
+
+
